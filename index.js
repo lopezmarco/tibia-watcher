@@ -44,7 +44,7 @@ var getPlayersList =  (worldInfo) => {
 	return new Promise(async (resolve, reject) => {
 				var playersList = [];
 				var players = worldInfo.worlds.players_online;
-				for (var i = 0; i < players.length; i++) {
+				for (var i = 0; i < 3; i++) {
 					 var player = await request({
 						url: `https://api.tibiadata.com/v1/characters/${players[i].name}.json`,
 						json: true

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Predas Watcher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div>
+    <h2 style="text-align: center">Predas Hunt List</h2>
+  </div>
+<div class="container">
+<table data-toggle="table" data-sort-name="level" data-sort-order="desc">
+  <thead>
+  <tr>
+      <th data-sortable="true" data-field="level">Level</th>
+      <th data-sortable="true" data-field="name">Name</th>
+      <th data-sortable="true" data-field="vocation">Vocation</th>
+      <th data-sortable="true" data-field="sex">Sex</th>
+      <th data-sortable="true" data-field="guild">Guild</th>
+      <th data-sortable="true" data-field="residence">Residence</th>
+      <th data-sortable="true" data-field="account">Account</th>
+      <th data-sortable="true" data-field="deaths">Last Death</th>
+      <th data-sortable="true" data-field="chars">Other chars</th>
+  </tr>
+  </thead>
+  <tr>
+    <% playersList.forEach(function(player) { %>
+    <tr>
+        <td><%= player.data.level %></td>
+        <td><%= player.data.name %></td>
+        <td><%= player.data.vocation %></td>
+        <td><%= player.data.sex %></td>
+        <td><% if (player.data.guild) { %> <%= player.data.guild.name %> <% } %></td>
+        <td><%= player.data.residence %></td>
+        <td><%= player.data.account_status %></td>
+        <td><% if (player.deaths.length > 0) { %> 
+          Date: <%= player.deaths[0].date.date.substring(0, 16) %> 
+          <br> At level: <%= player.deaths[0].level %>
+          <br> Reason: <%= player.deaths[0].reason %>
+            <% if (player.deaths[0].involved.length > 0) { %> 
+            <br> Involved:
+              <ul>
+                  <% player.deaths[0].involved.forEach(function(involved) { %>
+                      <li><%= involved.name %></li>
+                  <% }); %>
+              </ul>
+            <% } %>
+
+          <% } %>
+        </td>
+        <td><% if (player.other_characters.length > 0) { %> 
+           <ul>
+              <% player.other_characters.forEach(function(char) { %>
+                  <li><%= char.name %></li>
+              <% }); %>
+            </ul>
+
+         <% } %></td>
+    </tr>
+    <% }); %>
+  </tr> 
+</table>
+</div><br /><br />
+
+</body>
+</html>

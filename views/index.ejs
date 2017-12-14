@@ -31,21 +31,21 @@
   <tr>
     <% playersList.forEach(function(player) { %>
     <tr>
-        <td><%= player.data.level %></td>
-        <td><%= player.data.name %></td>
-        <td><%= player.data.vocation %></td>
-        <td><%= player.data.sex %></td>
-        <td><% if (player.data.guild) { %> <%= player.data.guild.name %> <% } %></td>
-        <td><%= player.data.residence %></td>
-        <td><%= player.data.account_status %></td>
-        <td><% if (player.deaths.length > 0) { %> 
-          Date: <%= player.deaths[0].date.date.substring(0, 16) %> 
-          <br> At level: <%= player.deaths[0].level %>
-          <br> Reason: <%= player.deaths[0].reason %>
-            <% if (player.deaths[0].involved.length > 0) { %> 
+        <td><%= player.characters.data.level %></td>
+        <td><%= player.characters.data.name %></td>
+        <td><%= player.characters.data.vocation %></td>
+        <td><%= player.characters.data.sex %></td>
+        <td><% if (player.characters.data.guild) { %> <%= player.characters.data.guild.name %> <% } %></td>
+        <td><%= player.characters.data.residence %></td>
+        <td><%= player.characters.data.account_status %></td>
+        <td><% if (player.characters.deaths.length > 0) { %> 
+          Date: <%= player.characters.deaths[0].date.date.substring(0, 16) %> 
+          <br> At level: <%= player.characters.deaths[0].level %>
+          <br> Reason: <%= player.characters.deaths[0].reason %>
+            <% if (player.characters.deaths[0].involved.length > 0) { %> 
             <br> Involved:
               <ul>
-                  <% player.deaths[0].involved.forEach(function(involved) { %>
+                  <% player.characters.deaths[0].involved.forEach(function(involved) { %>
                       <li><%= involved.name %></li>
                   <% }); %>
               </ul>
@@ -53,9 +53,9 @@
 
           <% } %>
         </td>
-        <td><% if (player.other_characters.length > 0) { %> 
+        <td><% if (player.characters.other_characters.length > 0) { %> 
            <ul>
-              <% player.other_characters.forEach(function(char) { %>
+              <% player.characters.other_characters.forEach(function(char) { %>
                   <li><%= char.name %></li>
               <% }); %>
             </ul>

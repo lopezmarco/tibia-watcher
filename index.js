@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
 var worldInfo = await getWorldInfo("umera");
 var playersList = await getPlayersList(worldInfo);
 
-console.log(playersList);
+console.log(playersList.length);
 console.log("final");
 
 	res.render('index.ejs', {
@@ -41,23 +41,19 @@ return request({
 }
 
 var getPlayersList =  (worldInfo) => {
-	return new Promise(async (resolve, reject) => {
+	var promises = [];
+
+
 				var playersList = [];
 				var players = worldInfo.worlds.players_online;
-				for (var i = 0; i < 3; i++) {
-					 var player = await request({
-						url: `https://api.tibiadata.com/v1/characters/${players[i].name}.json`,
-						json: true
-					});
-					playersList.push(player.characters);
+				for (var i = 0; i < players.length; i++) {
+					 promises.push(request({
+							url: `https://api.tibiadata.com/v1/characters/${players[i].name}.json`,
+							json: true
+						}));
 				}	
-		if (playersList) {
-			resolve(playersList);
-		}else{
-			reject("error fetching");
-		}
-	});
-		
+
+	return Promise.all(promises);
 }
 
 

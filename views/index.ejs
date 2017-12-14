@@ -7,14 +7,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <div>
-    <h2 style="text-align: center">Predas Hunt List</h2>
+    <h2 style="text-align: center"><img src="preda.gif"> Predas Hunt List <img src="preda.gif"></h2>
   </div>
 <div class="container">
-<table data-toggle="table" data-sort-name="level" data-sort-order="desc">
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Filtra aqui verijas" title="Type account type">
+  <br>
+<table data-toggle="table" data-sort-name="level" data-sort-order="desc" id="myTable">
   <thead>
   <tr>
       <th data-sortable="true" data-field="level">Level</th>
@@ -65,7 +70,26 @@
     <% }); %>
   </tr> 
 </table>
-</div><br /><br />
+</div>
 
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[6];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 </body>
 </html>

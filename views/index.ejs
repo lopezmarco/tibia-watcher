@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -12,16 +14,20 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<header class="main-header" role="banner">
+  <img src="tibialogo.gif"  alt="Banner Image"/>
+</header>
 <body>
+
   <div>
-    <h2 style="text-align: center"><img src="preda.gif"> Predas Hunt List <img src="preda.gif"></h2>
+    <h1 >Online Players Information For <%= world %></h1>
   </div>
 <div class="container">
-  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Filtra aqui verijas" title="Type account type">
+ <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Filtra aqui verijas" title="Type account type"> -->
   <br>
-<table data-toggle="table" data-sort-name="level" data-sort-order="desc" id="myTable">
+<table data-toggle="table" data-sort-name="level" data-sort-order="desc" id="myTable" class="table table-striped ">
   <thead>
-  <tr>
+  <tr class="table-primary">
       <th data-sortable="true" data-field="level">Level</th>
       <th data-sortable="true" data-field="name">Name</th>
       <th data-sortable="true" data-field="vocation">Vocation</th>
@@ -30,12 +36,13 @@
       <th data-sortable="true" data-field="residence">Residence</th>
       <th data-sortable="true" data-field="account">Account</th>
       <th data-sortable="true" data-field="deaths">Last Death</th>
-      <th data-sortable="true" data-field="chars">Other chars</th>
+      <th data-sortable="true" data-field="login">Last Login</th>
+      <th data-sortable="true" data-field="chars">Other Chars</th>
   </tr>
   </thead>
   <tr>
     <% playersList.forEach(function(player) { %>
-    <tr>
+    <tr >
         <td><%= player.characters.data.level %></td>
         <td><%= player.characters.data.name %></td>
         <td><%= player.characters.data.vocation %></td>
@@ -58,6 +65,7 @@
 
           <% } %>
         </td>
+        <td><% if (player.characters.data.last_login.length > 0) { %> Date: <%= player.characters.data.last_login[0].date.substring(0, 16) %> <% } %></td>
         <td><% if (player.characters.other_characters.length > 0) { %> 
            <ul>
               <% player.characters.other_characters.forEach(function(char) { %>

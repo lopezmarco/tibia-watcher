@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Tibia-font';
+  src: url('martel.ttf') format('truetype');
+}
+
+h1 {
+	color: white;
+	font-family: 'Tibia-font', sans-serif; 
+	text-align: center;
+}
+
+thead{
+	background-color: #0D47A1;
+	color: white;
+	font-family: 'Tibia-font', sans-serif; 
+	font-size: 18px;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #1565C0;
+   color:#CFD8DC;
+}
+
+.table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+2) > th {
+   background-color: #1976D2;
+   color:#CFD8DC;
+}
+
+body {
+background: url('tibiawp.jpg') no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+.main-header {
+  text-align: center;
+}

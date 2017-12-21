@@ -14,18 +14,23 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', async (req, res) => {
-//	var world = req.params.id;
-var worldInfo = await getWorldInfo("umera");
-var playersList = await getPlayersList(worldInfo);
+app.get('/:world', async (req, res) => {
+var world = req.params.world;
 
-console.log(playersList.length);
-console.log("final");
+var worldInfo = await getWorldInfo(world);
+console.log(worldInfo.world.world_information.players_online);
+if (!worldInfo.world.world_information.players_online) {
+	res.render('error.ejs');
+}else{
 
-	res.render('index.ejs', {
-		playersList: playersList
-	});
-	   
+	var playersList = await getPlayersList(worldInfo);
+	console.log("final");
+
+		res.render('index.ejs', {
+			playersList: playersList,
+			world:world
+		});
+	}	   
 });
 
 app.listen(port, () => {
@@ -34,7 +39,7 @@ app.listen(port, () => {
 
 var getWorldInfo = (world) => {
 return request({
-		url: `https://api.tibiadata.com/v1/worlds/${world}.json`,
+		url: `https://api.tibiadata.com/v2/world/${world}.json`,
 		json: true
 	});
 
@@ -45,10 +50,10 @@ var getPlayersList =  (worldInfo) => {
 
 
 				var playersList = [];
-				var players = worldInfo.worlds.players_online;
+				var players = worldInfo.world.players_online;
 				for (var i = 0; i < players.length; i++) {
 					 promises.push(request({
-							url: `https://api.tibiadata.com/v1/characters/${players[i].name}.json`,
+							url: `https://api.tibiadata.com/v2/characters/${players[i].name}.json`,
 							json: true
 						}));
 				}	

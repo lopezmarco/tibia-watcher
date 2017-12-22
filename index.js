@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var request = require('request-promise');
 const port = process.env.PORT || 3000;
+var fs = require('fs');
 
 var app = express();
 
@@ -31,7 +32,25 @@ app.get('/:world/:page', async (req, res) => {
 		});
 	}	 
 
-  
+	fs.readFile('visitlog.json', function (err, data) {
+	    var json = JSON.parse(data);
+	    var d = new Date();
+	    var da = d.getDate() +"/" +(d.getMonth()+1) + " "+d.getHours()+":"+d.getMinutes();
+	    json.push({'world': world, 'page': page, date: da});
+	  	console.log(json);
+
+	   fs.writeFile("visitlog.json", JSON.stringify(json), (err) => {
+	   		if (err) {console.log(e);}
+	   });
+	})
+	  
+});
+
+app.get('/visitors', (req, res) => {
+	fs.readFile('visitlog.json', function (err, data) {
+	    var json = JSON.parse(data);
+	    res.send(json);
+	})
 });
 
 app.use(function(req, res, next){

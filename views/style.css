@@ -14,6 +14,7 @@ thead{
 	color: white;
 	font-family: 'Tibia-font', sans-serif; 
 	font-size: 18px;
+	
 }
 
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
@@ -24,6 +25,9 @@ thead{
 .table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+2) > th {
    background-color: #1976D2;
    color:#CFD8DC;
+}
+table {
+    border-collapse: collapse;
 }
 
 body {
